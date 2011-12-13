@@ -1,0 +1,22 @@
+
+h1. Hamurabi
+One of the earliest computer games, Hamurabi (deliberatly misspelled) is a text-based strategy game where you rule the kingdom of Sumeria. Your challenge is to keep the kingdom healthy and growing. 
+
+Project built as a demonstration/group coding project for http://www.meetup.com/TiRochester/
+
+More here later ...
+
+Some code by Russell Glasser from http://www.apollowebworks.com/russell/samples/hamurabi.html used with permission. Check out his blog at http://castlesofair.blogspot.com/
+
+
+This Hamurabi code is open source software licensed under the GPLv3.
+
+-----------------
+Appcelerator, Appcelerator Titanium and associated marks and logos are 
+trademarks of Appcelerator, Inc. 
+
+Titanium is Copyright (c) 2009-2010 by Appcelerator, Inc. All Rights Reserved.
+
+Titanium is licensed under the Apache Public License (Version 2). Please
+see the LICENSE file for the full license.
+
