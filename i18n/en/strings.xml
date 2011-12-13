@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="ham">Hamurabi</string>
+	<string name="kingdom">Kingdom</string>
+	<string name="population">Population</string>
+	<string name="acres">Acreage</string>
+	<string name="weath">Wealth</string>
+	<string name="grain">Grain</string>
+	<string name="land">Land</string>
+	<string name="acre">acre</string>
+	<string name="bushel">bushel</string>
+	<string name="bu">bu</string>
+	<string name="bu_to_feed">Bushels to feed</string>
+	<string name="ac_to_plant">Acres to plant</string>
+	<string name="ac_to_buy">Acres to</string>
+	<string name="buy">Buy</string>
+	<string name="sell">Sell</string>
+	<string name="go">Go</string>
+	<string name="reportTitle">Hamurabi, I beg to report that in year %1:</string>
+	<string name="reportStarved">Starved: %1</string>
+	<string name="reportMoved">Immigrated: %1</string>
+	<string name="reportPopulation">Population: %1</string>
+	<string name="reportHarvest" formatted="false">Harvest: %1 bushels at %2 bu/ac</string>
+	<string name="reportRats">Destroyed: %1 bu.</string>
+	<string name="reportStorage">Storage: %1 bu.</string>
+	<string name="reportLand" formatted="false">Land: %1 acres at %2 bu/ac</string>
+</resources>
