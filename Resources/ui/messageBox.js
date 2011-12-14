@@ -1,6 +1,8 @@
 /*
-	Helper for making labels used in the slide-out message box
+	Module creates the slide-out message box, which will display the results of a turn in the game
 */
+
+// Helper for making labels used in the slide-out message box
 function makeLabel(strID, param) {
 	var tmpLabel =  Ti.UI.createLabel({
 		text: 'foo',
@@ -25,9 +27,9 @@ function makeLabel(strID, param) {
 }
 
 /*
-	Helper to create the slide-out message box, which will display the results of a turn in the game
+	Main function
 */
-var createMessageBox = function($$) {
+exports.createMessageBox = function($$) {
 	var msgView = Ti.UI.createView({
 		layout:'vertical',
 		backgroundColor: '#ffffcc',

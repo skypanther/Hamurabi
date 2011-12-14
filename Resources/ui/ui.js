@@ -1,10 +1,6 @@
 /*
-	UI components
+	Main UI components
 */
-
-// include file has helpers for some UI buttons & other controls
-// put there to clean up here
-Ti.include('uicomponents.js');
 
 exports.createMainWin = function($$) {
 	Ti.API.info('ui.js, anim_time = '+$$.ANIM_TIME);
@@ -16,8 +12,19 @@ exports.createMainWin = function($$) {
 		titleid: "ham"
 	});
 	
-	var messageBox = createMessageBox($$);
+	// require our slide-in notification box component and add it to the window
+	var messageBox = require('/ui/messageBox.js').createMessageBox($$);
 	win.add(messageBox);
+	
+	/*
+		Other UI components would be created in a similar fashion
+		where they're defined in a module, required in, used here
+		
+		We'll need:
+			- Something to output current stats
+			- Input controls for what to feed, sell, etc.
+			- and hooks to the app logic files which determine the results of a round of play
+	*/
 	
 	// placeholder for now till I build out the rest of the UI
 	var btn = Ti.UI.createButton({

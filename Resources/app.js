@@ -4,17 +4,12 @@
 	
 */
 
-require('/ui').createMainWin(require('/styles').styles).open();
+var $$ = require('/common/styles').styles;
+var mainWin = require('/ui/ui').createMainWin($$);
+mainWin.open();
 
 /*
-	Instead of daisy-chaining it all, we could do:
-	// require in the global styles module
-	var styles = require('/styles'); 
-	var $$ = styles.styles;
-	// require our UI module
-	var ui = require('/ui');
-	// declare the main window
-	var mainWin = ui.createMainWin($$);
-	// open it to start the app
-	mainWin.open();
+	We could daisy-chain it all, like this: 
+	require('/ui/ui').createMainWin(require('/common/styles').styles).open();
+
 */
