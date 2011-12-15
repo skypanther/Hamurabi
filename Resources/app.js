@@ -9,6 +9,14 @@ var mainWin = require('/ui/ui').createMainWin($$);
 mainWin.open();
 
 /*
+ * To be added later ...
+ */
+Ti.Gesture.addEventListener('orientationchange', function(){
+	Ti.App.fireEvent('orientation');
+});
+*/
+
+/*
 	We could daisy-chain it all, like this: 
 	require('/ui/ui').createMainWin(require('/common/styles').styles).open();
 

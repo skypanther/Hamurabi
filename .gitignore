@@ -1,3 +1,7 @@
 tmp
 
 .settings/
+build.log
+Resources/.DS_Store
+Resources/common/.DS_Store
+Resources/ui/.DS_Store
