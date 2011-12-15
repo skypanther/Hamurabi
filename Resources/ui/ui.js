@@ -13,7 +13,7 @@ exports.createMainWin = function($$) {
 	});
 	
 	// require our slide-in notification box component and add it to the window
-	var messageBox = require('messageBox').createMessageBox($$);
+	var messageBox = require('/ui/messageBox').createMessageBox($$);
 	win.add(messageBox);
 	
 	/*

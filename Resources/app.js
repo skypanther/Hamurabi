@@ -10,10 +10,10 @@ mainWin.open();
 
 /*
  * To be added later ...
- */
 Ti.Gesture.addEventListener('orientationchange', function(){
 	Ti.App.fireEvent('orientation');
 });
+
 */
 
 /*
