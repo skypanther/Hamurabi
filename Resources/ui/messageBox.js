@@ -32,7 +32,11 @@ function makeLabel(strID, param) {
 exports.createMessageBox = function($$) {
 	var msgView = Ti.UI.createView({
 		layout:'vertical',
-		backgroundColor: '#ffffcc',
+		backgroundColor: '#ffe83e',
+		border:1,
+		borderColor:'#999',
+		backgroundImage: '/images/bggradient.png',
+		borderRadius: '10',
 		width:'100%',
 		height:'90%',
 		top: 10,

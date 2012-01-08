@@ -28,7 +28,9 @@ function makeHeader(strID) {
 	var tmpView = Ti.UI.createView({
 		width:'100%',
 		height:30,
-		backgroundColor:'#ccc'
+		border:1,
+		borderColor:'#999',
+		backgroundColor:'#ffe83e'
 	});
 	var headLabel = Ti.UI.createLabel({
 		text: L(strID),
@@ -53,24 +55,27 @@ function makeHeader(strID) {
 	Main function
 */
 exports.createTopBox = function(headerStrID, firstLabel, secondLabel) {
-	var boxView = Ti.UI.createView({
+	var self = Ti.UI.createView({
 		layout:'vertical',
 		backgroundColor: '#fff',
-		width:'40%',
-		height:'200',
-		top: 0,
+		borderRadius:10,
+		border:1,
+		borderColor:'#999',
+		width:'45%',
+		height:'120',
+		top: 10,
 		left:10
 	});
-	boxView.add(makeHeader(headerStrID));
+	self.add(makeHeader(headerStrID));
 	var label1 = makeLabel(firstLabel);
-	boxView.add(label1);
+	self.add(label1);
 	var label2 = makeLabel(secondLabel);
-	boxView.add(label2);
+	self.add(label2);
 	
-	boxView.update = function(firstLblVal, secondLblVal) {
+	self.update = function(firstLblVal, secondLblVal) {
 		label1.update(firstLblVal);
 		label2.update(secondLblVal);
 	};
 	
-	return boxView;
+	return self;
 };
