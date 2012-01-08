@@ -6,6 +6,7 @@ exports.createMainWin = function($$) {
 	Ti.API.info('ui.js, anim_time = '+$$.ANIM_TIME);
 	var win = Ti.UI.createWindow({
 		backgroundColor:$$.winBG,
+		backgroundImage:$$.winBGImage,
 		fullscreen: false,
 		exitOnClose:true,
 		modal:true,
@@ -15,6 +16,11 @@ exports.createMainWin = function($$) {
 	// require our slide-in notification box component and add it to the window
 	var messageBox = require('/ui/messageBox').createMessageBox($$);
 	win.add(messageBox);
+
+	var kingdomBox = require('/ui/topBox').createTopBox('kingdom', 'population', 'acres');
+	win.add(kingdomBox);
+	var wealthBox = require('/ui/topBox').createTopBox('weath', 'grain', 'land');
+	win.add(wealthBox);
 	
 	/*
 		Other UI components would be created in a similar fashion
@@ -29,7 +35,7 @@ exports.createMainWin = function($$) {
 	// placeholder for now till I build out the rest of the UI
 	var btn = Ti.UI.createButton({
 		title:'Show it',
-		top:200,
+		bottom:10,
 		height:40,
 		width:100
 	});
