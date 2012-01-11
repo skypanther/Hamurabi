@@ -33,15 +33,20 @@ exports.createMessageBox = function($$) {
 	var msgView = Ti.UI.createView({
 		layout:'vertical',
 		backgroundColor: '#ffe83e',
-		border:1,
-		borderColor:'#999',
-		backgroundImage: '/images/bggradient.png',
 		borderRadius: '10',
 		width:'100%',
 		height:'90%',
 		top: 10,
-		left:Ti.Platform.displayCaps.platformWidth+20
+		left:Ti.Platform.displayCaps.platformWidth+20,
+		zIndex:99
 	});
+	if(Ti.Platform.osname != 'android') {
+		// bug: seting border causes transparency problems
+		// http://jira.appcelerator.org/browse/TIMOB-5362
+		msgView.border = 1;
+		msgView.borderColor = '#999';
+		msgView.backgroundImage = '/images/bggradient.png';
+	}
 	var msgTitle = makeLabel("reportTitle", [0]);
 	msgView.add(msgTitle);
 	var msgStarved = makeLabel("reportStarved", [0]);

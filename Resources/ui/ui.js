@@ -12,15 +12,20 @@ exports.createMainWin = function($$) {
 		modal:true,
 		titleid: "ham"
 	});
-	
-
+	if(Ti.Platform.osname=='android') {
+		win.windowPixelFormat = Ti.UI.Android.PIXEL_FORMAT_RGBA_8888;
+	}
 	var kingdomBox = require('/ui/topBox').createTopBox('kingdom', 'population', 'acres');
-	win.add(kingdomBox);
 	var wealthBox = require('/ui/topBox').createTopBox('weath', 'grain', 'land');
-	wealthBox.right = 10;
-	wealthBox.left = null;
+
+	if(Ti.Platform.osname != 'android') {
+		wealthBox.right = 10;
+		wealthBox.left = null;
+	} else {
+		wealthBox.left = Ti.Platform.displayCaps.platformWidth -  Ti.Platform.displayCaps.platformWidth * 0.45 - 10;
+	}
+	win.add(kingdomBox);
 	win.add(wealthBox);
-	
 
 	// require our slide-in notification box component and add it to the window
 	var messageBox = require('/ui/messageBox').createMessageBox($$);
@@ -35,10 +40,13 @@ exports.createMainWin = function($$) {
 		left: 40,
 		top: 180,
 		borderWidth:1,
+		borderColor: '#000',
 		backgroundColor:'#fff',
 		borderRadius:4,
+		color:'#000',
 		font: { fontSize:18 },
-		textAlign:'center'
+		textAlign:'center',
+		keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
 	});
 	win.add(buToFeed);
 	var buFeedLabel = Ti.UI.createLabel({
@@ -47,6 +55,7 @@ exports.createMainWin = function($$) {
 		height: 30,
 		left: 100,
 		top: 180,
+		color:'#000',
 		font: {
 			fontWeight:'bold',
 			fontSize:20
@@ -62,10 +71,13 @@ exports.createMainWin = function($$) {
 		left: 40,
 		top: 230,
 		borderWidth:1,
+		borderColor: '#000',
 		backgroundColor:'#fff',
 		borderRadius:4,
+		color:'#000',
 		font: { fontSize:18 },
-		textAlign:'center'
+		textAlign:'center',
+		keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
 	});
 	win.add(acToPlant);
 	var acPlantLabel = Ti.UI.createLabel({
@@ -74,6 +86,7 @@ exports.createMainWin = function($$) {
 		height: 30,
 		left: 100,
 		top: 230,
+		color:'#000',
 		font: {
 			fontWeight:'bold',
 			fontSize:20
@@ -89,10 +102,13 @@ exports.createMainWin = function($$) {
 		left: 40,
 		top: 280,
 		borderWidth:1,
+		borderColor: '#000',
 		backgroundColor:'#fff',
 		borderRadius:4,
+		color:'#000',
 		font: { fontSize:18 },
-		textAlign:'center'
+		textAlign:'center',
+		keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
 	});
 	win.add(acToSell);
 	var acBuyLabel = Ti.UI.createLabel({
@@ -101,12 +117,32 @@ exports.createMainWin = function($$) {
 		height: 30,
 		left: 100,
 		top: 280,
+		color:'#000',
 		font: {
 			fontWeight:'bold',
 			fontSize:20
 		}
 	});
 	win.add(acBuyLabel);
+
+	var buttons = ['Buy', 'Sell'];
+	var myCB = function (idx) {
+	  alert('You are '+buttons[idx]+'ing');
+	};
+	var tbar = require('/ui/custTabBar').makeTabbedBar({
+			labels:buttons, 
+			top:280,
+			left: 200,
+			height:30,
+			width: 100,
+			borderWidth:0,
+			/* CUSTOM PROPERTIES TO SET BACKGROUND IMAGES ON ANDROID */
+			androidBackgroundImage: '/images/SegmentedControlAndroidGradient.png',
+			androidBackgroundSelectedImage: '/images/SegmentedControlAndroidSelectedGradient.png'
+		}, 
+		myCB);
+	win.add(tbar);
+
 
 	/* The Buy/Sell segmented control */
 	// needs to be an implementation of my cross-platform segmented control
@@ -125,6 +161,12 @@ exports.createMainWin = function($$) {
 		setTimeout(btn.show, 3500);
 	});
 	win.add(btn);
+	
+	win.addEventListener('click', function(e){
+		acToSell.blur();
+		acToPlant.blur();
+		buToFeed.blur();
+	});
 	
 	return win;
 };
