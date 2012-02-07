@@ -2,64 +2,71 @@
 	Main logic of the game
 */
 
-var gameVars = {
-	gamestate: 0,
-	population: 0,
-	year: 0,
-	bushels: 0,
-	acreage: 0,
-	landprice: 0,
-	rats: 0,
-	g4: 0,
-	feeding: 0,
-	planting: 0,
-	trading: 0,
-	food: 0
-};
-function resetGame() {
-	// roll into startgame?
-	for(var i in gameVars) {
-		if(gameVars.hasOwnProperty===true) {
-			gameVars[i] = 0;			
-		}
-	}
-}
+// game variables
+var NOTPLAYING = 0;
+var PLAYING = 1;
+var population;
+// current population
+var year;
+// current year
+var bushels;
+// bushels in storage
+var acreage;
+// acreage
+var landprice;
+// bushels per acre for land
+var feeding;
+// bushels of grain to feed folks
+var planting;
+// number of acres planted
+var trading;
+var gamestate = NOTPLAYING;
+// status of the game
 var random_number = {
 	m: 714025,
 	a: 4096,
 	c: 150889,
 	seed: (new Date()).getTime() % random_number.m
 };
+
+// ///////////////////////FUNCTION PRINTF ////////////////////////
+function printf(form, data) {
+	// TIM: updates the textarea with data from each round
+	form.commentwin.value += data;
+}
+
+function go(form) {
+
+	if(gamestate == NOTPLAYING) {
+		gamestate = PLAYING;
+		startgame(form);
+		yearly_report(form, 5, 0, 3, 200);
+	} else {
+		advanceyear(form);
+	}
+	//    yearly_report(form, 0, 0, 0, 0);
+}
+
+// ///////////////////////FUNCTION RANDOM_NUMBER /////////////////
 function rand(tops) {// From JavaScript, The Definitive Guide, Page 468
 	random_number.seed = (random_number.seed * random_number.a + random_number.c) % random_number.m;
 	return Math.floor((random_number.seed / random_number.m) * tops);
 }
+
+// ///////////////////////FUNCTION STARTGAME //////////////////////////
 function startgame(form) {
-	resetGame();
-	gameVars.gamestate = 1;
-	gameVars.population = 100;
-	gameVars.year = 1;
-	gameVars.bushels = 2800;
-	gameVars.acreage = 1000;
-	gameVars.rats = 200;
-	gameVars.g4 = 50;
+	//    printf(form,"Try your hand at governing ancient Samaria\r\nfor a 10-year term of office");
+	rats = 200;
+	year = 1;
+	g4 = 50;
+	bushels = 2800;
+	population = 100;
+	acreage = 1000;
 }
-
-
-/* MAIN FUNCTION -- move to end */
-function go(values) {
-	if(gameVars.gamestate===0) {
-		startgame();
-		yearly_report(values, 5, 0, 3, 200, false)
-	} else {
-		advanceyear(values);
-	}
-}
-
-
 
 // ///////////////////////FUNCTION YEARLY_REPORT //////////////////////////
-function yearly_report(form, newcomers, starved, harvestyield, eaten, plague) {
+function yearly_report(form, newcomers, starved, yield, eaten, plague) {
+	form.commentwin.value = "";
 	var trading = getTrading(form);
 	food = form.foodamount.value;
 	planting = form.plantamount.value;
@@ -81,7 +88,7 @@ function yearly_report(form, newcomers, starved, harvestyield, eaten, plague) {
 		printf(form, "  The plague killed half the people.\n");
 	}
 	printf(form, "  The population is now " + population + ".\n");
-	printf(form, "  We harvested " + (harvestyield * planting) + " bushels at " + harvestyield + " bushels per acre.\n");
+	printf(form, "  We harvested " + (yield * planting) + " bushels at " + yield + " bushels per acre.\n");
 	printf(form, "  Rats destroyed " + eaten + " bushels, leaving " + bushels + " in storage.\n");
 	printf(form, "  The city owns " + acreage + " acres of land.\n");
 	landprice = 17 + rand(6);
@@ -89,8 +96,6 @@ function yearly_report(form, newcomers, starved, harvestyield, eaten, plague) {
 
 	clearInputs(form);
 	updateData(form);
-	
-	return gameVars;
 }
 
 // ///////////////////////FUNCTION ADVANCEYEAR //////////////////////////
@@ -128,9 +133,9 @@ function advanceyear(form) {
 	acreage = 1 * form.acrewin.value;
 	plague = rand(11);
 
-	// calculate the harvest harvestyield (bushels per acre)
-	harvestyield = rand(5) + 1;
-	harvested = harvestyield * getPlanting(form);
+	// calculate the harvest yield (bushels per acre)
+	yield = rand(5) + 1;
+	harvested = yield * getPlanting(form);
 	bushels += harvested;
 
 	// rats are running wild
@@ -152,14 +157,14 @@ function advanceyear(form) {
 	if(starved > 0) {
 		newcomers = Math.floor(starved / 2);
 	}
-	newcomers += Math.floor((5 - harvestyield) * bushels / 600 + 1);
+	newcomers += Math.floor((5 - yield) * bushels / 600 + 1);
 	if(newcomers > 50)
 		newcomers = 50;
 	if(newcomers < 0)
 		newcomers = 0;
 	population += newcomers;
 
-	yearly_report(form, newcomers, starved, harvestyield, eaten, plague)
+	yearly_report(form, newcomers, starved, yield, eaten, plague)
 }
 
 function getTrading(form) {
